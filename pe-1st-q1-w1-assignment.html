@@ -32,6 +32,20 @@ body{font-family:'Nunito','Century Gothic','Arial Rounded MT Bold',Verdana,sans-
 @keyframes emoji-bounce{0%{transform:scale(1) rotate(0deg)}30%{transform:scale(1.25) rotate(-8deg)}60%{transform:scale(1.1) rotate(6deg)}100%{transform:scale(1) rotate(0deg)}}
 .bounce-emoji{display:inline-block;transition:transform 0.1s;cursor:default}
 .bounce-emoji:hover{animation:emoji-bounce 0.5s ease}
+.info-strip{display:flex;flex-wrap:wrap;background:#fff;border-bottom:2px solid #E8DDD2;justify-content:center;position:relative;z-index:10;overflow:visible}
+.info-item{flex:1;min-width:200px;padding:16px 20px;border-right:1px solid #E8DDD2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:6px;overflow:visible}
+.info-item:last-child{border-right:none}
+.info-icon{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.info-label{font-size:10px;color:#9A8E82;text-transform:uppercase;letter-spacing:0.5px;font-weight:700}
+.info-value{font-size:16px;color:#1B4332;font-weight:800;line-height:1.2}
+.info-detail{font-size:11px;color:#5A4D3E;line-height:1.3}
+.std-tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.3px;position:relative;cursor:help;transition:transform 0.15s,box-shadow 0.15s;background:#E8F5E9;border:1.5px solid #A5D6A7;color:#2E7D32}
+.std-tag:hover{transform:scale(1.08);box-shadow:0 2px 8px rgba(0,0,0,0.12)}
+.std-tag .std-tooltip{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);width:220px;background:#1B4332;color:#fff;font-size:12px;font-weight:600;line-height:1.45;padding:10px 14px;border-radius:12px;text-align:center;letter-spacing:0;opacity:0;visibility:hidden;pointer-events:none;transition:opacity 0.2s,visibility 0.2s,transform 0.2s;z-index:100;box-shadow:0 4px 16px rgba(0,0,0,0.2)}
+.std-tag .std-tooltip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:#1B4332}
+.std-tag:hover .std-tooltip{opacity:1;visibility:visible;transform:translateX(-50%) translateY(-2px)}
+.std-tag .std-tooltip .std-code{display:block;color:#95D5B2;font-size:10px;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;font-weight:800}
+@media(max-width:680px){.info-strip{flex-direction:column}.info-item{border-right:none;border-bottom:1px solid #E8DDD2}}
 </style>
 </head>
 <body>
@@ -256,6 +270,24 @@ body{font-family:'Nunito','Century Gothic','Arial Rounded MT Bold',Verdana,sans-
   <div class="header-week">Quarter 1 &middot; Week 1 Assignment &mdash; Back to School</div>
 </div>
 
+<div class="info-strip">
+  <div class="info-item">
+    <div class="info-icon" style="background:linear-gradient(135deg,#E8F5E9,#C8E6C9);">📅</div>
+    <div class="info-label">Quarter / Week</div>
+    <div class="info-value">Q1 &middot; Week 1</div>
+    <div class="info-detail">Back to School</div>
+  </div>
+  <div class="info-item">
+    <div class="info-icon" style="background:linear-gradient(135deg,#E1F5FE,#B3E5FC);">🏃</div>
+    <div class="info-label">P.E. Focus</div>
+    <div class="info-value">Physical Activity During the School Day</div>
+  </div>
+  <div class="info-item">
+    <div class="info-icon" style="background:linear-gradient(135deg,#F3E5F5,#E1BEE7);">📋</div>
+    <div class="info-label">Standards</div>
+    <div style="margin-top:4px;"><span class="std-tag">PE.1.L.3.3<span class="std-tooltip"><span class="std-code">PE.1.L.3.3</span>Identify physical activities that can be performed during the school day.</span></span></div>
+  </div>
+</div>
 <div class="content">
 
   <div class="art-divider"><span class="bounce-emoji">⚽</span> <span class="bounce-emoji">🏃‍♂️</span> <span class="bounce-emoji">🏀</span> <span class="bounce-emoji">🤸‍♀️</span> <span class="bounce-emoji">🎽</span> <span class="bounce-emoji">🥇</span></div>
