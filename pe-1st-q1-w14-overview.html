@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Optima Academy Online – P.E. Grade 1: Follow the Path Overview</title>
+<title>Optima Academy Online &ndash; P.E. Grade 1: A Forest of Friends Overview</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -88,6 +88,17 @@ body{font-family:'Nunito','Century Gothic','Arial Rounded MT Bold',Verdana,sans-
 .footer{background:#0E1C42;color:rgba(255,255,255,0.5);text-align:center;padding:16px;font-size:12px;font-weight:600}
 .footer a{color:#55C8E8;text-decoration:none}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.vocab-row{display:flex;gap:16px;margin:4px 0 0;flex-wrap:wrap}
+.vocab-flip{flex:1;min-width:200px;height:160px;perspective:800px;cursor:pointer}
+.vocab-inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform 0.5s}
+.vocab-flip.flipped .vocab-inner{transform:rotateY(180deg)}
+.vocab-front,.vocab-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;text-align:center}
+.vocab-front{background:linear-gradient(135deg,#E8EAF6,#C5CAE9);border:2px solid #9FA8DA}
+.vocab-back{background:linear-gradient(135deg,#E8F5E9,#C8E6C9);border:2px solid #A5D6A7;transform:rotateY(180deg)}
+.vocab-emoji{font-size:28px;margin-bottom:6px}
+.vocab-word{font-size:20px;font-weight:900;color:#1A237E;letter-spacing:0.05em}
+.vocab-tap{font-size:11px;color:#5C6BC0;margin-top:6px;font-weight:700}
+.vocab-def{font-size:14px;font-weight:700;color:#1B4332;line-height:1.5}
 @media(max-width:680px){.two-col{grid-template-columns:1fr}.info-strip{flex-direction:column}.info-item{border-right:none;border-bottom:1px solid #E8DDD2}.info-item:last-child{border-bottom:none}}
 .paint-border{position:relative;z-index:1;height:8px;background:linear-gradient(90deg,#FF7043 0%,#FF7043 12.5%,#FFB74D 12.5%,#FFB74D 25%,#FFF176 25%,#FFF176 37.5%,#81C784 37.5%,#81C784 50%,#4DD0E1 50%,#4DD0E1 62.5%,#7986CB 62.5%,#7986CB 75%,#CE93D8 75%,#CE93D8 87.5%,#F48FB1 87.5%,#F48FB1 100%)}
 .art-frame{position:relative;padding:4px;border-radius:18px;margin-bottom:24px;background:linear-gradient(135deg,#FF7043,#FFB74D,#FFF176,#81C784,#4DD0E1,#7986CB,#CE93D8,#F48FB1);box-shadow:0 2px 12px rgba(27,67,50,0.08)}
@@ -145,9 +156,9 @@ body{font-family:'Nunito','Century Gothic','Arial Rounded MT Bold',Verdana,sans-
         return;
     }
 
-    var LABEL_PLAY   = "▶️ Listen";
-    var LABEL_PAUSE  = "⏸️ Pause";
-    var LABEL_RESUME = "▶️ Resume";
+    var LABEL_PLAY   = "\u25b6\ufe0f Listen";
+    var LABEL_PAUSE  = "\u23f8\ufe0f Pause";
+    var LABEL_RESUME = "\u25b6\ufe0f Resume";
     var BLOCK_SEL = "p, li, h1, h2, h3, h4, h5, h6, blockquote, td, th, dt, dd, figcaption, div";
     var SKIP_SEL  = "#optima-read-aloud, [data-ra-skip], button, script, style, select, noscript, iframe";
 
@@ -197,7 +208,7 @@ body{font-family:'Nunito','Century Gothic','Arial Rounded MT Bold',Verdana,sans-
         items.forEach(function (item) {
             var clean = item.text.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{27BF}\u{2300}-\u{23FF}\u{2B50}\u{2B55}\u{25A0}-\u{25FF}\u{2702}-\u{27B0}\u{FE00}-\u{FE0F}\u{200D}\u{20E3}\u{E0020}-\u{E007F}]/gu, "").replace(/\s+/g, " ").trim();
             if (!clean) return;
-            var sentences = clean.match(/[^.!?]+[.!?]+["”’‘)\]]*\s*|[^.!?]+$/g) || [clean];
+            var sentences = clean.match(/[^.!?]+[.!?]+[\u201c\u201d\u2018\u2019)\]]*\s*|[^.!?]+$/g) || [clean];
             sentences.forEach(function (s) {
                 s = s.trim();
                 if (s) q.push({ el: item.el, text: s });
@@ -240,7 +251,7 @@ body{font-family:'Nunito','Century Gothic','Arial Rounded MT Bold',Verdana,sans-
         };
         currentUtterance = u;
         window.speechSynthesis.speak(u);
-        statusEl.textContent = "Reading… " + (idx + 1) + " / " + queue.length;
+        statusEl.textContent = "Reading\u2026 " + (idx + 1) + " / " + queue.length;
     }
 
     function finish(message) {
@@ -265,7 +276,7 @@ body{font-family:'Nunito','Century Gothic','Arial Rounded MT Bold',Verdana,sans-
             window.speechSynthesis.resume();
             paused = false;
             playBtn.textContent = LABEL_PAUSE;
-            statusEl.textContent = "Reading… " + (idx + 1) + " / " + queue.length;
+            statusEl.textContent = "Reading\u2026 " + (idx + 1) + " / " + queue.length;
             return;
         }
         queue = collectQueue();
@@ -313,26 +324,26 @@ body{font-family:'Nunito','Century Gothic','Arial Rounded MT Bold',Verdana,sans-
     </div>
   </div>
   <div class="header-title">P.E. &middot; Grade 1</div>
-  <div class="header-week">Follow the Path</div>
+  <div class="header-week">A Forest of Friends</div>
 </div>
 
 <div class="info-strip">
   <div class="info-item">
     <div class="info-icon" style="background: linear-gradient(135deg, #E8F5E9, #C8E6C9);"><span class="bounce-emoji">&#x1F4C5;</span></div>
     <div class="info-label">Theme</div>
-    <div class="info-value">Follow the Path</div>
+    <div class="info-value">A Forest of Friends</div>
   </div>
   <div class="info-item">
     <div class="info-icon" style="background: linear-gradient(135deg, #FFF8E1, #FFECB3);"><span class="bounce-emoji">&#x1F3C3;&#x200D;&#x2642;&#xFE0F;</span></div>
     <div class="info-label">P.E. Focus</div>
-    <div class="info-value">Movement Concepts (Directions, Pathways, Levels)</div>
+    <div class="info-value">Balancing &amp; Rolling</div>
   </div>
   <div class="info-item">
     <div class="info-icon" style="background: linear-gradient(135deg, #F3E5F5, #E1BEE7);"><span class="bounce-emoji">&#x1F4CB;</span></div>
     <div class="info-label">Standards</div>
     <div class="standards-row">
-      <span class="std-tag">PE.1.C.2.8
-        <span class="std-tooltip"><span class="std-code">PE.1.C.2.8</span>Identify movement concepts (directions, pathways, levels) associated with effort and personal/general space.</span>
+      <span class="std-tag">PE.1.M.1.11
+        <span class="std-tooltip"><span class="std-code">PE.1.M.1.11</span>Demonstrate a sequence of a balance, a roll and a different balance.</span>
       </span>
     </div>
   </div>
@@ -358,7 +369,7 @@ body{font-family:'Nunito','Century Gothic','Arial Rounded MT Bold',Verdana,sans-
           <span class="eq-icon bounce-emoji">&#x1F914;</span>
           <div>
             <div class="eq-label">Think About This&hellip;</div>
-            <div class="eq-question">&ldquo;How can we move our bodies in different directions, pathways, and levels?&rdquo;</div>
+            <div class="eq-question">&ldquo;How can we control our bodies to balance still and roll smoothly?&rdquo;</div>
           </div>
         </div>
       </div>
@@ -375,16 +386,54 @@ body{font-family:'Nunito','Century Gothic','Arial Rounded MT Bold',Verdana,sans-
       <div class="card-body">
         <div class="ican-item">
           <div class="ican-num" style="background: linear-gradient(135deg, #FF7043, #FF8A65);">1</div>
-          <div class="ican-text"><strong>I can</strong> move my body in different directions, like forward, backward, and sideways.</div>
+          <div class="ican-text"><strong>I can</strong> balance on different body parts, like one foot or my hands and knees.</div>
         </div>
         <div class="ican-item">
           <div class="ican-num" style="background: linear-gradient(135deg, #7E57C2, #9575CD);">2</div>
-          <div class="ican-text"><strong>I can</strong> follow directions to change how I am moving.</div>
+          <div class="ican-text"><strong>I can</strong> hold a balance still without wobbling or falling.</div>
         </div>
         <div class="ican-item">
           <div class="ican-num" style="background: linear-gradient(135deg, #26A69A, #4DB6AC);">3</div>
-          <div class="ican-text"><strong>I can</strong> combine a direction, pathway, and level together when I move.</div>
+          <div class="ican-text"><strong>I can</strong> control my body while rolling in different directions.</div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card theme-coral">
+    <div class="card-head">
+      <div class="card-head-icon"><span class="bounce-emoji">&#x1F4DA;</span></div>
+      <div>
+        <div class="card-head-label">Key Terms</div>
+        <div class="card-head-title">Vocabulary</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="vocab-row">
+      <div class="vocab-flip" onclick="this.classList.toggle('flipped')">
+        <div class="vocab-inner">
+          <div class="vocab-front">
+            <div class="vocab-emoji">⚖️</div>
+            <div class="vocab-word">Balance</div>
+            <div class="vocab-tap">tap to flip</div>
+          </div>
+          <div class="vocab-back">
+            <div class="vocab-def">Holding your body steady and still on one or more body parts without falling over.</div>
+          </div>
+        </div>
+      </div>
+      <div class="vocab-flip" onclick="this.classList.toggle('flipped')">
+        <div class="vocab-inner">
+          <div class="vocab-front">
+            <div class="vocab-emoji">🔄</div>
+            <div class="vocab-word">Roll</div>
+            <div class="vocab-tap">tap to flip</div>
+          </div>
+          <div class="vocab-back">
+            <div class="vocab-def">A smooth movement where your body turns over along the ground in a controlled way.</div>
+          </div>
+        </div>
+      </div>
       </div>
     </div>
   </div>
@@ -398,7 +447,7 @@ body{font-family:'Nunito','Century Gothic','Arial Rounded MT Bold',Verdana,sans-
       </div>
     </div>
     <div class="card-body">
-      <p>What do you notice about how your body moves differently when you go straight compared to zigzag? What do you wonder about how moving at a low level, like crawling, might feel different from moving at a high level, like reaching up on your tiptoes?</p>
+      <p>What do you notice about how your body has to work differently to hold a balance compared to rolling? What do you wonder about which body parts help you the most when you are trying to stay balanced?</p>
     </div>
   </div>
 
@@ -411,7 +460,7 @@ body{font-family:'Nunito','Century Gothic','Arial Rounded MT Bold',Verdana,sans-
       </div>
     </div>
     <div class="card-body">
-      <p>I practiced moving in different directions, pathways, and levels, and one way of moving that was my favorite was&hellip;</p>
+      <p>I practiced balancing and rolling, and one balance or roll that felt the easiest or trickiest for me was&hellip;</p>
     </div>
   </div>
 
